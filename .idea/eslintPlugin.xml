@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ESLintProjectComponent">
+    <option name="eslintRcFile" value=".eslintrc.js" />
+    <option name="eslintExecutable" value="E:\Projekty\GitHub\tournament-api\node_modules\.bin\eslint.cmd" />
+    <option name="nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <option name="treatAllEslintIssuesAsWarnings" value="true" />
+    <option name="pluginEnabled" value="true" />
+    <option name="ext" value=".ts" />
+  </component>
+</project>
