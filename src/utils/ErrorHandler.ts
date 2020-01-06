@@ -2,7 +2,7 @@ import { Response, NextFunction } from 'express';
 import { HTTPClientError, HTTP404Error } from './httpErrors';
 
 export const notFoundError = (): void => {
-  throw new HTTP404Error('Method not found.');
+  throw new HTTP404Error('Not found.');
 };
 
 export const clientError = (err: Error, res: Response, next: NextFunction): void => {

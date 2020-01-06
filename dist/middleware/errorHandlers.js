@@ -23,5 +23,4 @@ const handleServerErrors = (router) => {
         ErrorHandler.serverError(err, res, next);
     });
 };
-exports.default = [handle404Error, handleClientErrors, handleServerErrors];
 //# sourceMappingURL=errorHandlers.js.map

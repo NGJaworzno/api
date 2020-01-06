@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const httpErrors_1 = require("./httpErrors");
 exports.notFoundError = () => {
-    throw new httpErrors_1.HTTP404Error('Method not found.');
+    throw new httpErrors_1.HTTP404Error('Not found.');
 };
 exports.clientError = (err, res, next) => {
     if (err instanceof httpErrors_1.HTTPClientError) {
@@ -22,4 +22,4 @@ exports.serverError = (err, res, next) => {
         res.status(500).send(err.stack);
     }
 };
-//# sourceMappingURL=errorHandler.js.map
+//# sourceMappingURL=ErrorHandler.js.map

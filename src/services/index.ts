@@ -1,3 +1,7 @@
-import restRoutes from './rest/routes';
+import { Route } from '../types';
+import aliveRoutes from './alive/routes';
 
-export default [...restRoutes];
+const routes: Route[] = [
+  ...aliveRoutes,
+];
+export default routes;

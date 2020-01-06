@@ -20,5 +20,3 @@ const handleServerErrors = (router: Router): void => {
     ErrorHandler.serverError(err, res, next);
   });
 };
-
-export default [handle404Error, handleClientErrors, handleServerErrors];

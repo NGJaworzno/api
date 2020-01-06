@@ -1,10 +1,6 @@
-import {
-  Router,
-  Request,
-  Response,
-  NextFunction,
-} from 'express';
+import { Router } from 'express';
 import * as R from 'ramda';
+import { Route } from '../types';
 
 type Wrapper = ((router: Router) => void);
 
@@ -16,22 +12,10 @@ export const applyMiddleware = (
   R.forEach(addMiddleware, middleware);
 };
 
-type Handler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => Promise<void> | void;
-
-type Route = {
-  path: string;
-  method: string;
-  handler: Handler | Handler[];
-};
-
 export const applyRoutes = (routes: Route[], router: Router): void => {
   const addRoute = (route: Route): void => {
     const { method, path, handler } = route;
-    (router as any)[method](path, handler);
+    router[method](path, handler);
   };
   R.forEach(addRoute, routes);
 };
