@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const routes = [
     {
-        path: '/alive',
+        path: '/status',
         method: 'get',
         handler: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const connection = typeorm_1.getConnection();

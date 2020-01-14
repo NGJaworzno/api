@@ -2,9 +2,14 @@ import http from 'http';
 import express from 'express';
 import { createConnection } from 'typeorm';
 
+import { checkEnv } from './config';
 import { applyMiddleware, applyRoutes } from './utils';
 import middleware from './middleware';
 import routes from './services';
+import errorHandlers from './middleware/errorHandlers';
+
+require('dotenv').config();
+checkEnv();
 
 process.on('uncaughtException', (e) => {
   console.log(e);
@@ -19,7 +24,8 @@ process.on('unhandledRejection', (e) => {
 const router = express();
 applyMiddleware(middleware, router);
 applyRoutes(routes, router);
-createConnection();
+applyMiddleware(errorHandlers, router);
+createConnection().then()
 
 const { PORT = 3000 } = process.env;
 const server = http.createServer(router);

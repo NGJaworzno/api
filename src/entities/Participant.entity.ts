@@ -3,7 +3,7 @@ import {
 } from 'typeorm';
 import { UserRole } from '../types';
 /* eslint import/no-cycle:0 */
-import Team from './Team';
+import Team from './Team.entity';
 
 @Entity()
 class Participant {

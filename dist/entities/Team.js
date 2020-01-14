@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Game_1 = __importDefault(require("./Game"));
+/* eslint import/no-cycle:0 */
 const Participant_1 = __importDefault(require("./Participant"));
 let Team = class Team {
 };
@@ -28,10 +30,12 @@ __decorate([
 __decorate([
     typeorm_1.OneToOne(() => Game_1.default),
     typeorm_1.JoinColumn(),
-    __metadata("design:type", Game_1.default)
+    __metadata("design:type", typeof (_a = typeof Game_1.default !== "undefined" && Game_1.default) === "function" ? _a : Object)
 ], Team.prototype, "game", void 0);
 __decorate([
-    typeorm_1.OneToMany(() => Participant_1.default, (participant) => participant.team),
+    typeorm_1.OneToMany(() => Participant_1.default, (participant) => participant.team, {
+        eager: true,
+    }),
     __metadata("design:type", Array)
 ], Team.prototype, "participants", void 0);
 Team = __decorate([

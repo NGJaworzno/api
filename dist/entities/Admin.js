@@ -8,9 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const SALT_ROUNDS = 10;
 let Admin = class Admin {
+    loadTempPassword() {
+        this.tempPassword = this.password;
+    }
+    updateHash() {
+        if (this.tempPassword !== this.password) {
+            this.password = bcrypt_1.default.hashSync(this.password, SALT_ROUNDS);
+        }
+    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
@@ -24,6 +37,19 @@ __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
 ], Admin.prototype, "password", void 0);
+__decorate([
+    typeorm_1.AfterLoad(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Admin.prototype, "loadTempPassword", null);
+__decorate([
+    typeorm_1.BeforeInsert(),
+    typeorm_1.BeforeUpdate(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Admin.prototype, "updateHash", null);
 Admin = __decorate([
     typeorm_1.Entity()
 ], Admin);

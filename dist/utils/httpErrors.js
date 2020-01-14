@@ -14,12 +14,19 @@ class HTTPClientError extends Error {
 }
 exports.HTTPClientError = HTTPClientError;
 class HTTP400Error extends HTTPClientError {
-    constructor(message = 'Bad Request') {
+    constructor(message = 'Bad request') {
         super(message);
         this.statusCode = 400;
     }
 }
 exports.HTTP400Error = HTTP400Error;
+class HTTP401Error extends HTTPClientError {
+    constructor(message = 'Not authorized') {
+        super(message);
+        this.statusCode = 401;
+    }
+}
+exports.HTTP401Error = HTTP401Error;
 class HTTP404Error extends HTTPClientError {
     constructor(message = 'Not found') {
         super(message);

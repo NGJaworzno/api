@@ -1,7 +1,10 @@
 import { Route } from '../types';
-import aliveRoutes from './alive/routes';
+import statusRoutes from './status/routes';
+import authRoutes from './auth/routes';
 
 const routes: Route[] = [
-  ...aliveRoutes,
+  ...statusRoutes,
+  ...authRoutes,
 ];
 export default routes;
+

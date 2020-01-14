@@ -1,7 +1,7 @@
 import {
   Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn
 } from 'typeorm';
-import Participant from './Participant';
+import Participant from './Participant.entity';
 
 @Entity()
 class Approval {

@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const routes = [
     {
-        path: '/alive',
+        path: '/status',
         method: 'get',
         handler: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.statusCode(200).send();

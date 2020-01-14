@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 
+export interface UserRequest extends Request {
+  user?: any;
+}
+
 export type Handler = (
-  req: Request,
+  req: UserRequest,
   res: Response,
   next: NextFunction
 ) => Promise<void> | void;
@@ -19,4 +23,3 @@ export enum UserRole {
   Helper,
   Player,
 }
-

@@ -16,7 +16,7 @@ const typeorm_1 = require("typeorm");
 const Admin_1 = __importDefault(require("../../entities/Admin"));
 const routes = [
     {
-        path: '/alive',
+        path: '/status',
         method: 'get',
         handler: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const firstUser = yield typeorm_1.getConnection()

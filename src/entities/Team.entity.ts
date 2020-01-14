@@ -1,8 +1,9 @@
 import {
   Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany,
 } from 'typeorm';
-import Game from './Game';
-import Participant from './Participant';
+import Game from './Game.entity';
+/* eslint import/no-cycle:0 */
+import Participant from './Participant.entity';
 
 @Entity()
 class Team {
@@ -16,7 +17,13 @@ class Team {
   @JoinColumn()
   game!: Game;
 
-  @OneToMany(() => Participant, (participant: Participant) => participant.team)
+  @OneToMany(
+    () => Participant,
+    (participant: Participant) => participant.team,
+    {
+      eager: true,
+    },
+  )
   participants!: Participant[];
 }
 

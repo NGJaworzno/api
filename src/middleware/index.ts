@@ -1,5 +1,7 @@
-import CommonHandlers from './common';
+import commonHandlers from './common';
+import authHandlers from './auth';
 
 export default [
-  ...CommonHandlers,
+  ...commonHandlers,
+  ...authHandlers,
 ];

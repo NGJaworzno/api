@@ -6,9 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("http"));
 const express_1 = __importDefault(require("express"));
 const typeorm_1 = require("typeorm");
+const config_1 = require("./config");
 const utils_1 = require("./utils");
 const middleware_1 = __importDefault(require("./middleware"));
 const services_1 = __importDefault(require("./services"));
+const errorHandlers_1 = __importDefault(require("./middleware/errorHandlers"));
+require('dotenv').config();
+config_1.checkEnv();
 process.on('uncaughtException', (e) => {
     console.log(e);
     process.exit(1);
@@ -20,7 +24,8 @@ process.on('unhandledRejection', (e) => {
 const router = express_1.default();
 utils_1.applyMiddleware(middleware_1.default, router);
 utils_1.applyRoutes(services_1.default, router);
-typeorm_1.createConnection();
+utils_1.applyMiddleware(errorHandlers_1.default, router);
+typeorm_1.createConnection().then();
 const { PORT = 3000 } = process.env;
 const server = http_1.default.createServer(router);
 server.listen(PORT, () => (console.log(`Server is running http://localhost:${PORT}...`)));
