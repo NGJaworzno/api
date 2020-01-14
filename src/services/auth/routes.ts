@@ -28,7 +28,7 @@ const routes: Route[] = [
         return;
       }
 
-      const token = TokenHandler.createToken(admin);
+      const token = TokenHandler.createBearerToken(admin);
       res.status(200);
       res.send({ token });
     },
