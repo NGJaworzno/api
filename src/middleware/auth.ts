@@ -1,6 +1,6 @@
 import { Router, Request } from 'express';
 import jwt from 'express-jwt';
-import { getConfig } from '../config';
+import config from '../config';
 
 const getTokenFromAuthHeader = (req: Request): string | null => {
   const authHeader = req.headers.authorization;
@@ -15,7 +15,7 @@ const getTokenFromAuthHeader = (req: Request): string | null => {
 const handleJwt = (router: Router): void => {
   router.use(
     jwt({
-      secret: getConfig().jwtSecret,
+      secret: config.jwt.secret,
       credentialsRequired: false,
       getToken: getTokenFromAuthHeader,
     }),

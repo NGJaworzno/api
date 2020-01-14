@@ -5,7 +5,7 @@ import * as R from 'ramda';
 
 import { Route } from '../../types';
 import Admin, { HASH_SALT_ROUNDS } from '../../entities/Admin.entity';
-import { getConfig } from '../../config';
+import config from '../../config';
 import * as ErrorHandler from '../../utils/ErrorHandler';
 import * as TokenHandler from '../../utils/TokenHandler';
 
@@ -37,8 +37,8 @@ const routes: Route[] = [
     path: '/v1/auth/signup',
     method: 'post',
     handler: async (req: Request, res: Response): Promise<void> => {
-      const singupOpen = getConfig().signupOpen;
-      if (R.not(singupOpen)) {
+      const singUpOpen = config.signUp.open;
+      if (R.not(singUpOpen)) {
         ErrorHandler.notAuthorizedError();
         return;
       }
@@ -51,7 +51,7 @@ const routes: Route[] = [
         return;
       }
 
-      let adminData: Admin = req.body;
+      const adminData: Admin = req.body;
       adminData.password = bcrypt.hashSync(adminData.password, HASH_SALT_ROUNDS);
 
       await getConnection()
@@ -61,7 +61,7 @@ const routes: Route[] = [
         .values(adminData)
         .execute();
 
-      res.status(200);
+      res.status(201);
       res.send({
         message: 'Successfully created admin account',
       });

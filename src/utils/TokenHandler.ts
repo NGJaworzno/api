@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
 import * as R from 'ramda';
 
-import { getConfig } from '../config';
+import config from '../config';
 import Admin from '../entities/Admin.entity';
 
 export const createSignedToken = (data: Admin): string => (
   jwt.sign({
     data,
-  }, getConfig().jwtSecret)
+  }, config.jwt.secret)
 );
 
 export const createBearerToken = (data: Admin): string => (

@@ -2,14 +2,13 @@ import http from 'http';
 import express from 'express';
 import { createConnection } from 'typeorm';
 
-import { checkEnv } from './config';
+import config from './config';
 import { applyMiddleware, applyRoutes } from './utils';
 import middleware from './middleware';
 import routes from './services';
 import errorHandlers from './middleware/errorHandlers';
 
-require('dotenv').config();
-checkEnv();
+config.check();
 
 process.on('uncaughtException', (e) => {
   console.log(e);

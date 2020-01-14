@@ -1,5 +1,5 @@
 import {
-  Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn
+  Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn,
 } from 'typeorm';
 import Participant from './Participant.entity';
 

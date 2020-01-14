@@ -12,7 +12,7 @@ const routes: Route[] = [
     method: 'get',
     handler: async (req: Request, res: Response): Promise<void> => {
       const games = await getRepository(Game)
-        .createQueryBuilder("game")
+        .createQueryBuilder('game')
         .getMany();
 
       res.status(200);
