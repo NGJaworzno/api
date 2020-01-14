@@ -1,7 +1,7 @@
 import {
   Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,
 } from 'typeorm';
-import { UserRole } from '../types';
+import { ParticipantRole } from '../types';
 /* eslint import/no-cycle:0 */
 import Team from './Team.entity';
 
@@ -23,7 +23,7 @@ class Participant {
   phone!: string;
 
   @Column()
-  role!: UserRole;
+  role!: ParticipantRole;
 
   @ManyToOne(() => Team, (team: Team) => team.participants)
   @JoinColumn()

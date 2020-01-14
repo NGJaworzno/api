@@ -18,7 +18,7 @@ export type Route = {
   handler: Handler | Handler[];
 };
 
-export enum UserRole {
+export enum ParticipantRole {
   Spectator,
   Helper,
   Player,
