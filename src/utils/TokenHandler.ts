@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import * as R from 'ramda';
 
-import config from '../config';
-import Admin from '../entities/Admin.entity';
+import config from '@config/index';
+import Admin from '@entities/Admin.entity';
 
 export const createSignedToken = (data: Admin): string => (
   jwt.sign({

@@ -1,28 +1,35 @@
 import {
-  Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany,
-} from 'typeorm';
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  Unique,
+} from 'typeorm-plus';
 import Game from './Game.entity';
-/* eslint import/no-cycle:0 */
 import Participant from './Participant.entity';
+import Base from './Base.entity';
 
-@Entity()
-class Team {
+@Entity('teams')
+@Unique(['name'])
+class Team extends Base {
   @PrimaryGeneratedColumn()
   id!: number;
+
+  @Column({ type: 'varchar', length: 100 })
+  name!: string;
 
   @Column()
   reserve!: boolean;
 
-  @OneToOne(() => Game)
+  @ManyToOne(() => Game)
   @JoinColumn()
   game!: Game;
 
   @OneToMany(
     () => Participant,
     (participant: Participant) => participant.team,
-    {
-      eager: true,
-    },
   )
   participants!: Participant[];
 }

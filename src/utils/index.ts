@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as R from 'ramda';
-import { Route } from '../types';
+import { Route } from '@types';
 
 type Wrapper = ((router: Router) => void);
 

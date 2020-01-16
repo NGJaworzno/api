@@ -1,7 +1,7 @@
 import {
   Request, Response, NextFunction, Router,
 } from 'express';
-import * as ErrorHandler from '../utils/ErrorHandler';
+import * as ErrorHandler from '@utils/ErrorHandler';
 
 const handle404Error = (router: Router): void => {
   router.use(() => {

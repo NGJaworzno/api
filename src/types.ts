@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
+import { ObjectID } from 'typeorm-plus';
+import Admin from '@entities/Admin.entity';
+
+export type ID = string | number | Date | ObjectID;
 
 export interface UserRequest extends Request {
-  user?: any;
+  user?: Admin;
 }
 
 export type Handler = (

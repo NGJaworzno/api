@@ -1,6 +1,6 @@
 import { Router, Request } from 'express';
 import jwt from 'express-jwt';
-import config from '../config';
+import config from '@config/index';
 
 const getTokenFromAuthHeader = (req: Request): string | null => {
   const authHeader = req.headers.authorization;

@@ -21,12 +21,12 @@ const check = (): void => {
 
   if (R.not(allCorrect)) {
     const logEnvNotProvided = (v: string): void => console.log(`ENV not provided: ${v}`);
-    const logIfEncNotProvided = (v: string): void => R.when(
+    const logIfEnvNotProvided = (v: string): void => R.when(
       () => R.not(envHasVar(v)),
       logEnvNotProvided,
     )(v);
 
-    R.forEach(logIfEncNotProvided, variables);
+    R.forEach(logIfEnvNotProvided, variables);
     throw new Error('Not all environment variables provided');
   }
 };

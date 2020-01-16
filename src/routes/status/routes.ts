@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getConnection } from 'typeorm';
-import { Route } from '../../types';
+import { getConnection } from 'typeorm-plus';
+import { Route } from '@types';
 
 const routes: Route[] = [
   {

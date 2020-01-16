@@ -5,14 +5,14 @@ import {
   BeforeInsert,
   BeforeUpdate,
   AfterLoad,
-  AfterInsert,
-} from 'typeorm';
-import bcrypt from 'bcrypt';
+  DeleteDateColumn,
+} from 'typeorm-plus';
+// eslint-disable-next-line import/no-cycle
+import * as AuthHandler from '@utils/AuthHandler';
+import Base from './Base.entity';
 
-export const HASH_SALT_ROUNDS = 10;
-
-@Entity()
-class Admin {
+@Entity('admins')
+class Admin extends Base {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -33,7 +33,7 @@ class Admin {
   @BeforeUpdate()
   public updateHash(): void {
     if (this.tempPassword !== this.password) {
-      this.password = bcrypt.hashSync(this.password, HASH_SALT_ROUNDS);
+      this.password = AuthHandler.createPasswordHash(this.password);
     }
   }
 }

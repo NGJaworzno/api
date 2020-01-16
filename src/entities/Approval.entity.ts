@@ -1,10 +1,11 @@
 import {
   Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn,
-} from 'typeorm';
+} from 'typeorm-plus';
 import Participant from './Participant.entity';
+import Base from './Base.entity';
 
-@Entity()
-class Approval {
+@Entity('approvals')
+class Approval extends Base {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 

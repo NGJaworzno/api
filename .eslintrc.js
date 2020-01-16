@@ -11,4 +11,14 @@ module.exports = {
       modules: true,
     }
   },
+  settings: {
+    "import/resolver": {
+      typescript: {
+        directory: "./"
+      },
+    },
+  },
+  rules: {
+    "import/no-cycle": "off"
+  }
 };
