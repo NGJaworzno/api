@@ -1,11 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import * as R from 'ramda';
+import { validateSync } from 'class-validator';
 
-import { Route } from '@types';
+import { ParticipantRole, Route } from '@types';
 import TeamController from '@controllers/Team.controller';
 import ParticipantController from '@controllers/Participant.controller';
+import Team from '@entities/Team.entity';
 import Participant from '@entities/Participant.entity';
 import * as ErrorHandler from '@utils/ErrorHandler';
+import { HTTP400Error } from '@utils/httpErrors';
 
 const baseRoutes: Route[] = [
   {
@@ -24,26 +27,47 @@ const baseRoutes: Route[] = [
     path: '/v1/teams',
     method: 'post',
     handler: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-      await TeamController.Add(req.body);
+      const toParticipantInstance = (reqData: Partial<Participant>): Participant => {
+        let participantData = new Participant();
+        participantData = Object.assign(participantData, reqData);
+        participantData.birthday = new Date(participantData.birthday);
+        participantData.role = ParticipantRole.Player;
 
-      const createdTeam = await TeamController.GetByConditions({ name: req.body.name });
+        const errors = validateSync(participantData);
+        const hasErrors = R.gt(R.length(errors), 0);
+        if (hasErrors) {
+          throw new HTTP400Error({
+            validation: errors,
+          });
+        }
+
+        return participantData;
+      };
+      const participants: Participant[] = R.map(toParticipantInstance, req.body.participants);
+
+      let teamData = new Team();
+      teamData = Object.assign(teamData, req.body);
+      await TeamController.Add(teamData);
+
+      const createdTeam = await TeamController.GetByConditions({ name: teamData.name });
       if (createdTeam === undefined) {
         ErrorHandler.notFoundError();
         return next();
       }
 
-      const toParticipant = (value: Partial<Participant>): Partial<Participant> => ({
-        ...value,
-        team: createdTeam,
-      });
-      const participants = R.map(toParticipant, req.body.participants);
-
-      await ParticipantController.Add(participants);
+      const withTeam = (participant: Participant): Participant => {
+        // eslint-disable-next-line no-param-reassign
+        participant.team = createdTeam;
+        return participant;
+      };
+      const participantsWithTeam: Participant[] = R.map(withTeam, participants);
+      await ParticipantController.Add(participantsWithTeam);
 
       res.status(200);
       res.send({
         message: 'Successfully created team and participants',
       });
+      return next();
     },
   },
 ];

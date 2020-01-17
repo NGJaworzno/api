@@ -5,6 +5,7 @@ import {
   getConnection,
   FindConditions,
 } from 'typeorm-plus';
+
 import { QueryDeepPartialEntity } from 'typeorm-plus/query-builder/QueryPartialEntity';
 import { ID } from '@types';
 
@@ -47,12 +48,7 @@ export const simpleAdd = async <T>(
   entityClass: EntityClass<T>,
   data: AddDataType<T>,
 ): Promise<void> => {
-  await getConnection()
-    .createQueryBuilder()
-    .insert()
-    .into(entityClass)
-    .values(data)
-    .execute();
+  await getRepository(entityClass).insert(data);
 };
 
 export const simpleUpdate = async <T>(

@@ -1,13 +1,17 @@
 import {
-  Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn,
+  Entity, OneToOne, JoinColumn, Column, Generated, PrimaryGeneratedColumn,
 } from 'typeorm-plus';
 import Participant from './Participant.entity';
 import Base from './Base.entity';
 
 @Entity('approvals')
 class Approval extends Base {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column()
+  @Generated('uuid')
+  key!: string;
 
   @OneToOne(() => Participant)
   @JoinColumn()

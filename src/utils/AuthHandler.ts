@@ -1,20 +1,14 @@
 import * as R from 'ramda';
 import bcrypt from 'bcrypt';
-// eslint-disable-next-line import/no-cycle
-import { UserRequest } from '@types';
 import { NextFunction } from 'express';
 
-// eslint-disable-next-line import/no-cycle
-import AdminController from '@controllers/Admin.controller';
+import { UserRequest } from '@types';
 import * as ErrorHandler from './ErrorHandler';
 
 export const HASH_SALT_ROUNDS = 10;
 
 export const requestUserNotValid = (req: UserRequest): boolean => (
-  R.or(
-    R.isNil(req.user),
-    R.isNil(AdminController.GetByEmail(req?.user?.email || '')),
-  )
+  R.isNil(req.user)
 );
 
 export const handleUserNotValid = (next: NextFunction): void => {

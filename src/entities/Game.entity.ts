@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm-plus';
+import { Length } from 'class-validator';
 import Team from './Team.entity';
 import Base from './Base.entity';
 
@@ -13,6 +14,7 @@ class Game extends Base {
   id!: number;
 
   @Column()
+  @Length(3, 100)
   name!: string;
 
   @OneToMany(

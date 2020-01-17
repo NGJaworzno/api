@@ -5,6 +5,7 @@ import { Route, UserRequest } from '@types';
 import ParticipantController from '@controllers/Participant.controller';
 import * as AuthHandler from '@utils/AuthHandler';
 import Participant from '@entities/Participant.entity';
+import Game from "@entities/Game.entity";
 
 const editRoutes: Route[] = [
   {
@@ -36,7 +37,9 @@ const editRoutes: Route[] = [
         return next();
       }
 
-      const participantData: Participant = req.body;
+      let participantData = new Participant();
+      participantData = Object.assign(participantData, req.body);
+
       await ParticipantController.Update(participantData, id);
 
       res.status(200);

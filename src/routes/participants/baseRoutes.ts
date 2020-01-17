@@ -25,7 +25,9 @@ const baseRoutes: Route[] = [
     path: '/v1/participants',
     method: 'post',
     handler: async (req: UserRequest, res: Response, next: NextFunction): Promise<void> => {
-      const participantData: Participant = req.body;
+      let participantData = new Participant();
+      participantData = Object.assign(participantData, req.body);
+      participantData.birthday = new Date(participantData.birthday);
 
       const participantHasTeam = R.not(R.isNil(participantData.team));
       if (participantHasTeam) {

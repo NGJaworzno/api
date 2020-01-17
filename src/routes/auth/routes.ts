@@ -42,15 +42,9 @@ const routes: Route[] = [
         return next();
       }
 
-      const admin = await AdminController.GetByEmail(req.body.email);
-      const accountWithProvidedEmailExists = R.not(R.isNil(admin));
-      if (accountWithProvidedEmailExists) {
-        ErrorHandler.notAuthorizedError();
-        return next();
-      }
+      let adminData = new Admin();
+      adminData = Object.assign(adminData, req.body);
 
-      const adminData: Admin = req.body;
-      adminData.password = AuthHandler.createPasswordHash(adminData.password);
       await AdminController.Add(adminData);
 
       res.status(201);

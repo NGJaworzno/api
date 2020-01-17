@@ -4,26 +4,44 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  Unique,
+  AfterLoad,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm-plus';
+import {
+  IsEmail,
+  IsDate,
+  IsMobilePhone,
+  MaxDate,
+  IsString, validateOrReject,
+} from 'class-validator';
+
 import { ParticipantRole } from '@types';
 import Team from './Team.entity';
 import Base from './Base.entity';
 
 @Entity('participants')
+@Unique(['name', 'email'])
 class Participant extends Base {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
+  @IsString()
   name!: string;
 
   @Column()
-  birthday!: string;
+  @IsDate()
+  @MaxDate(new Date())
+  birthday!: Date;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
+  @IsEmail()
   email!: string;
 
   @Column()
+  @IsMobilePhone('pl-PL')
   phone!: string;
 
   @Column()

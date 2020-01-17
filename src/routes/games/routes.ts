@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Route, UserRequest } from '@types';
 import GameController from '@controllers/Game.controller';
 import * as AuthHandler from '@utils/AuthHandler';
-import config from '@config/index';
+import Game from '@entities/Game.entity';
 
 const routes: Route[] = [
   {
@@ -24,7 +24,10 @@ const routes: Route[] = [
     handler: async (req: UserRequest, res: Response, next: NextFunction): Promise<void> => {
       AuthHandler.checkAdminPrivileges(req, next);
 
-      await GameController.Add(req.body);
+      let gameData = new Game();
+      gameData = Object.assign(gameData, req.body);
+
+      await GameController.Add(gameData);
 
       res.status(200);
       res.send({

@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToMany,
   Unique,
+  JoinTable,
 } from 'typeorm-plus';
 import Game from './Game.entity';
 import Participant from './Participant.entity';
@@ -19,9 +20,6 @@ class Team extends Base {
 
   @Column({ type: 'varchar', length: 100 })
   name!: string;
-
-  @Column()
-  reserve!: boolean;
 
   @ManyToOne(() => Game)
   @JoinColumn()

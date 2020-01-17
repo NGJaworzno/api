@@ -13,7 +13,7 @@ export const clientError = (err: Error, res: Response, next: NextFunction): void
   if (err instanceof HTTPClientError) {
     console.warn(err);
     res.status(err.statusCode).send({
-      error: err.message,
+      error: err.objectMessage || err.message,
     });
   } else {
     next(err);
@@ -22,11 +22,8 @@ export const clientError = (err: Error, res: Response, next: NextFunction): void
 
 export const serverError = (err: Error, res: Response, next: NextFunction): void => {
   console.error(err);
-  if (process.env.NODE_ENV === 'production') {
-    res.status(500).send({
-      error: 'Internal Server Error',
-    });
-  } else {
-    res.status(500).send(err.stack);
-  }
+
+  res.status(500).send({
+    error: err,
+  });
 };

@@ -1,25 +1,32 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   BeforeInsert,
   BeforeUpdate,
   AfterLoad,
-  DeleteDateColumn,
+  Unique, PrimaryGeneratedColumn,
 } from 'typeorm-plus';
-// eslint-disable-next-line import/no-cycle
+import {
+  IsEmail,
+  Length,
+  validateOrReject,
+} from 'class-validator';
+
 import * as AuthHandler from '@utils/AuthHandler';
 import Base from './Base.entity';
 
 @Entity('admins')
+@Unique(['email'])
 class Admin extends Base {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
+  @IsEmail()
   email!: string;
 
   @Column()
+  @Length(8, 80)
   password!: string;
 
   private tempPassword!: string;
