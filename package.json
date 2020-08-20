@@ -28,7 +28,7 @@
     "@types/jsonwebtoken": "^8.3.5",
     "@types/node": "^13.1.4",
     "@types/ramda": "^0.26.39",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "class-validator": "^0.11.0",
     "compression": "^1.7.4",
